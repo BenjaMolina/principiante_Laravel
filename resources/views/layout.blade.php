@@ -5,13 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Mi sitio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .active{
+            text-decoration: none;
+            color:green;
+        }
+    </style>
 </head>
 <body>
     <header>
+        <h1>{{ request()->url()  }}</h1>
+        <h2>{{ request()->is('/') ? 'Estas en el Home' : 'No estas en el home' }}</h2>
+        
+        <?php 
+            function activateMenu($url)
+            {
+                return request()->is($url) ? 'active' : '' ;
+            }
+        ?>
         <nav>
-             <a href="<?php echo route('home'); ?>">Inicio</a>
-            <a href="<?php echo route('saludos', 'YOMerengues'); ?>">Saludo</a> <!-- MAndando parametro opcional -->
-            <a href="<?php echo route('contactos'); ?>">Contacto</a>
+             <a class=" {{ activateMenu('/') }}" 
+                href="{{ route('home') }}">
+                Inicio
+            </a>
+            <a class=" {{ activateMenu('saludos/*') }}"  
+                href="{{  route('saludos', 'YOMerengues') }}">
+                Saludo
+            </a> <!-- MAndando parametro opcional -->
+            <a class=" {{ activateMenu('contactos') }}"  
+                href="{{  route('contactos') }}">
+                Contacto
+            </a>
         </nav>
     </header>
 

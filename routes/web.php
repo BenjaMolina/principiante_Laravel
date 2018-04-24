@@ -11,28 +11,11 @@
 |
 */
 
-Route::get('/', ['as' => 'home', function () {
-    return view('home');
-}]);
+//Usando controladores
+Route::get('/', 'PagesController@home')->name('home');
 
-Route::get('saludos/{nombre?}', ['as' => 'saludos',function ($nombre = "Por defecto") {
-    // return view('saludo',[
-    //     'nombre' => $nombre
-    // ]);
-    // return view('saludo')->with([
-    //     'nombre' => $nombre
-    // ]);
-    $html = "<h1>HOLA MUNDO</h1>";
-    $consolas = [
-        'Playstation',
-        'Xbox One',
-        'Nintendo 64'
-    ];
+Route::get('contactos', 'PagesController@contactos')->name('contactos');
 
-    return view('saludo',compact('nombre','html','consolas'));
+Route::post('contacto', 'PagesController@mensaje');
 
-}])->where('nombre',"[A-Za-z]+");
-
-Route::get('contactos',['as' => 'contactos', function(){
-    return view('contactos');
-}]);
+Route::get('saludos/{nombre?}', 'PagesController@saludos')->name('saludos')->where('nombre', "[A-Za-z]+");
