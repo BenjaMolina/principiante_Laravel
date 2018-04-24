@@ -22,7 +22,14 @@ Route::get('saludos/{nombre?}', ['as' => 'saludos',function ($nombre = "Por defe
     // return view('saludo')->with([
     //     'nombre' => $nombre
     // ]);
-    return view('saludo',compact('nombre'));
+    $html = "<h1>HOLA MUNDO</h1>";
+    $consolas = [
+        'Playstation',
+        'Xbox One',
+        'Nintendo 64'
+    ];
+
+    return view('saludo',compact('nombre','html','consolas'));
 
 }])->where('nombre',"[A-Za-z]+");
 
