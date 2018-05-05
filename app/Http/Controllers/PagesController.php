@@ -7,6 +7,14 @@ use App\Http\Requests\CreateMessageRequest;
 
 class PagesController extends Controller
 {
+    public function __construc()
+    {
+        // $this->middleware('example'); //Se aplica a todos
+        // $this->middleware('example',['only'=>['home']] ); //Se aplicac solo a uno
+        $this->middleware('example',['except'=>['home']] ); //A todos menos a uno
+
+    }
+
     public function home()
     {
         //return response('Contenido',200,["X-TOKEN" => "Secret"]);

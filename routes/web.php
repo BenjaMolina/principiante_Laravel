@@ -12,7 +12,8 @@
 */
 
 //Usando controladores
-Route::get('/', 'PagesController@home')->name('home');
+//Route::get('/', 'PagesController@home')->name('home')->middleware('example'); //Middleware
+Route::get('/', 'PagesController@home')->name('home')->middleware('example');
 
 Route::get('contactos', 'PagesController@contactos')->name('contactos');
 
