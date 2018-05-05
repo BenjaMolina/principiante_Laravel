@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateMessageRequest;
 
 class PagesController extends Controller
 {
@@ -28,16 +29,10 @@ class PagesController extends Controller
         return view('saludo',compact('nombre','html','consolas'));
     }
 
-    public function mensaje(Request $request) //Recibimos los datos en el $request
+    public function mensaje(CreateMessageRequest $request) //Recibimos los datos en el $request
     {
-        //return $request->all(); //Devolvemos los datos que nos llegan del formulario en JSON
         
-        if($request->has('nombre')) //Verificamos si el campo nombre si vien desde el formulario
-        {
-            return "Tiene nombre.. y es ". $request->input('nombre');
-        }
-
-        return "No tiene nombre";
+        return $request->all(); //Devolvemos los datos que nos llegan del formulario en JSON
         
     }
 }
