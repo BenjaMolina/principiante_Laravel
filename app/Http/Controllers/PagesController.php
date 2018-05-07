@@ -7,7 +7,7 @@ use App\Http\Requests\CreateMessageRequest;
 
 class PagesController extends Controller
 {
-    public function __construc()
+    public function __construct()
     {
         // $this->middleware('example'); //Se aplica a todos
         // $this->middleware('example',['only'=>['home']] ); //Se aplicac solo a uno
