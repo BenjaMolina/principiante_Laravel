@@ -13,10 +13,24 @@
 
 //Usando controladores
 //Route::get('/', 'PagesController@home')->name('home')->middleware('example'); //Middleware
+
+Route::get('contactame',[
+    'as' => 'contactactamee', 
+    'uses'=>'PagesController@contact'
+    ]); //Otra forma de darle un Alias a un Controlador
+
 Route::get('/', 'PagesController@home')->name('home');
 
 Route::get('contactos', 'PagesController@contactos')->name('contactos');
 
 Route::post('contacto', 'PagesController@mensaje');
 
-Route::get('saludos/{nombre?}', 'PagesController@saludos')->name('saludos')->where('nombre', "[A-Za-z]+");
+Route::get('saludos/{nombre?}', 'PagesController@saludos') //parametro opcional
+                                ->name('saludos')
+                                ->where('nombre', "[A-Za-z]+");
+
+
+//uso de REST
+Route::get('mensajes','MessagesController@index')->name('messages.index');
+Route::get('mensajes/create','MessagesController@create')->name('messages.create');
+Route::post('mensajes','MessagesController@store')->name('messages.store');

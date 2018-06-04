@@ -19,8 +19,8 @@
 </head>
 <body>
     <header>
-        <h1>{{ request()->url()  }}</h1>
-        <h2>{{ request()->is('/') ? 'Estas en el Home' : 'No estas en el home' }}</h2>
+        <!--<h1>{{ request()->url()  }}</h1>
+        <h2>{{ request()->is('/') ? 'Estas en el Home' : 'No estas en el home' }}</h2>-->
         
         <?php 
             function activateMenu($url)
@@ -38,7 +38,7 @@
                 Saludo
             </a> <!-- MAndando parametro opcional -->
             <a class=" {{ activateMenu('contactos') }}"  
-                href="{{  route('contactos') }}">
+                href="{{  route('messages.create') }}">
                 Contacto
             </a>
         </nav>

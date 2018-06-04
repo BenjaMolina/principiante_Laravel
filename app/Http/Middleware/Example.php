@@ -15,7 +15,7 @@ class Example
      */
     public function handle($request, Closure $next)
     {
-        if(false)
+        if(true)
         {
             return $next($request);
         }
