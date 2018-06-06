@@ -37,9 +37,12 @@
                 href="{{  route('saludos', 'YOMerengues') }}">
                 Saludo
             </a> <!-- MAndando parametro opcional -->
-            <a class=" {{ activateMenu('contactos') }}"  
+            <a class=" {{ activateMenu('mensajes/create') }}"  
                 href="{{  route('messages.create') }}">
                 Contacto
+            <a class=" {{ activateMenu('mensajes') }}"  
+                href="{{  route('messages.index') }}">
+                Mensajes
             </a>
         </nav>
     </header>
