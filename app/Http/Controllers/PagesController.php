@@ -22,10 +22,10 @@ class PagesController extends Controller
         return view('home');
     }
 
-    public function contactos()
+    /*public function contactos()
     {
         return view('contactos');
-    }
+    }*/
 
     public function saludos($nombre = "Por Defecto")
     {
@@ -39,16 +39,15 @@ class PagesController extends Controller
         return view('saludo',compact('nombre','html','consolas'));
     }
 
-    public function mensaje(CreateMessageRequest $request) //Recibimos los datos en el $request
+    /*public function mensaje(CreateMessageRequest $request) //Recibimos los datos en el $request
     {
         
         $datos = $request->all(); //Devolvemos los datos que nos llegan del formulario en JSON
         //return redirect('/'); //Redirecciona a una URL especifica
         //return redirect()->route('saludos'); //Redirecciona a un alias de algun URL
-        return back()
-                    ->with('keyMensaje',"Mensaje a mandar a la vista"); //Regresa a la ruta anterior
+        return back()->with('keyMensaje',"Mensaje a mandar a la vista"); //Regresa a la ruta anterior
 
         //return response()->json(["data" => $datos],200)
          //                   ->header('X-TOKEN', 'secret');
-    }
+    }*/
 }

@@ -40,10 +40,23 @@
             <a class=" {{ activateMenu('mensajes/create') }}"  
                 href="{{  route('mensajes.create') }}">
                 Contacto
-            <a class=" {{ activateMenu('mensajes') }}"  
-                href="{{  route('mensajes.index') }}">
-                Mensajes
-            </a>
+           
+            
+            @if(auth()->check())
+                <a class=" {{ activateMenu('mensajes') }}"  
+                    href="{{  route('mensajes.index') }}">
+                    Mensajes
+                </a>
+                <a href="/logout">Cerrar sesion de {{auth()->user()->name}}</a>
+            @endif
+
+            @if(auth()->guest())
+                <a class=" {{ activateMenu('login') }}"  
+                    href="{{route('login')}}">
+                    login
+                </a>
+            @endif
+            
         </nav>
     </header>
 

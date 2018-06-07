@@ -9,6 +9,13 @@ use App\Message;
 
 class MessagesController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('auth',['except' =>['create','store']]); //Middleware para evitar acceder a rutas mediante la URL
+    }
+
+
     public function index()
     {
         //$messages =  DB::table('messages')->get(); //Query Builder
@@ -57,7 +64,7 @@ class MessagesController extends Controller
         ]);*/
 
         //Redireccionar
-        return redirect()->route('mensajes.index');
+        return redirect()->route('mensajes.create')->with('keyMensaje', 'Hemos recibido tu mensaje');
     }
 
     public function show($id)

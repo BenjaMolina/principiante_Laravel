@@ -14,16 +14,17 @@
 //Usando controladores
 //Route::get('/', 'PagesController@home')->name('home')->middleware('example'); //Middleware
 
+Route::get('/', 'PagesController@home')->name('home');
+
+/*Route::get('contactos', 'PagesController@contactos')->name('contactos');
+
+Route::post('contacto', 'PagesController@mensaje');
+
 Route::get('contactame',[
     'as' => 'contactactamee', 
     'uses'=>'PagesController@contact'
     ]); //Otra forma de darle un Alias a un Controlador
-
-Route::get('/', 'PagesController@home')->name('home');
-
-Route::get('contactos', 'PagesController@contactos')->name('contactos');
-
-Route::post('contacto', 'PagesController@mensaje');
+*/
 
 Route::get('saludos/{nombre?}', 'PagesController@saludos') //parametro opcional
                                 ->name('saludos')
@@ -43,3 +44,23 @@ Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.dest
 
 //Reduciendo las rutas a una sola linea
 Route::resource('mensajes','MessagesController');
+
+
+//Autenticacion
+
+    //Ruta para crear un usuario de prueba
+/*Route::get('test',function(){
+    $user = new App\User;
+
+    $user->name = 'Jorge';
+    $user->email = 'jorge@gmail.com';
+    $user->password = bcrypt('123123'); //Encriptamos la contraseña
+
+    $user->save();
+
+    return $user;
+});*/
+
+Route::get('login','Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
