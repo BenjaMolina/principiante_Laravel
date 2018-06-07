@@ -30,11 +30,16 @@ Route::get('saludos/{nombre?}', 'PagesController@saludos') //parametro opcional
                                 ->where('nombre', "[A-Za-z]+");
 
 
-//uso de REST
-Route::get('mensajes','MessagesController@index')->name('messages.index');
+//USO de REST
+/*Route::get('mensajes','MessagesController@index')->name('messages.index');
 Route::get('mensajes/create','MessagesController@create')->name('messages.create');
 Route::post('mensajes','MessagesController@store')->name('messages.store');
 Route::get('mensajes/{id}','MessagesController@show')->name('messages.show');
 Route::get('mensajes/{id}/edit','MessagesController@edit')->name('messages.edit');
 Route::put('mensajes/{id}','MessagesController@update')->name('messages.update');
-Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.destroy');
+Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.destroy');*/
+
+
+
+//Reduciendo las rutas a una sola linea
+Route::resource('mensajes','MessagesController');

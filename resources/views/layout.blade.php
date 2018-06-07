@@ -38,10 +38,10 @@
                 Saludo
             </a> <!-- MAndando parametro opcional -->
             <a class=" {{ activateMenu('mensajes/create') }}"  
-                href="{{  route('messages.create') }}">
+                href="{{  route('mensajes.create') }}">
                 Contacto
             <a class=" {{ activateMenu('mensajes') }}"  
-                href="{{  route('messages.index') }}">
+                href="{{  route('mensajes.index') }}">
                 Mensajes
             </a>
         </nav>

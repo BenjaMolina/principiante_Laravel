@@ -8,7 +8,7 @@
         <h3>{{ session('keyMensaje')}}</h3>
     
     @else
-    <form action="{{route('messages.store')}}" method="POST">
+    <form action="{{route('mensajes.store')}}" method="POST">
         <p><label for="nombre">
             Nombre:
             <input type="text" name="nombre" value="{{ old('nombre') }}">
