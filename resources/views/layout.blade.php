@@ -79,20 +79,15 @@
                                 </a>
                             </li>
                         @else
-                            <li>
-                                <a href="/logout">Cerrar sesion de {{auth()->user()->name}}</a>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth()->user()->name}} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/logout">Cerrar sesion</a></li>
+                                </ul>
                             </li>
                         @endif
                         
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
+                        
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
@@ -106,6 +101,8 @@
             Copiright {{date('Y')}}
         </footer>
     </div>
+
+    <script src="/js/all.js"></script>
     
 </body>
 </html>
