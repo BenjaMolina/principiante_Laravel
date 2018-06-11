@@ -66,6 +66,15 @@
                                 </a>
                             </li>
                             
+                            @if(auth()->user()->hasRoles(['admin','estudiante']))
+                                <li class=" {{ activateMenu('usuarios*') }}">
+                                    <a   
+                                        href="{{  route('usuarios.index') }}">
+                                        Usuarios
+                                    </a>
+                                </li>
+                            @endif
+
                         @endif
                         
                     </ul>

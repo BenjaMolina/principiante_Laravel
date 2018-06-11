@@ -42,24 +42,31 @@ Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.dest
 
 
 
-//Reduciendo las rutas a una sola linea
-Route::resource('mensajes','MessagesController');
-
-
-//Autenticacion
 
     //Ruta para crear un usuario de prueba
+
 /*Route::get('test',function(){
     $user = new App\User;
 
-    $user->name = 'Jorge';
-    $user->email = 'jorge@gmail.com';
+    $user->name = 'Jorge2';
+    $user->email = 'jorge3@gmail.com';
     $user->password = bcrypt('123123'); //Encriptamos la contraseña
+    $user->role = 'estudiante';
 
     $user->save();
 
     return $user;
 });*/
+
+
+
+
+//Reduciendo las rutas a una sola linea
+Route::resource('mensajes','MessagesController');
+Route::resource('usuarios','UsersController');
+
+
+//Autenticacion
 
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
