@@ -27,10 +27,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class); //pertenece a...
+    }
+
     public function hasRoles(array $roles)
     {
         foreach ($roles as $role) {
-            if ($this->role === $role){
+            if ($this->role->nombre === $role){
 
                 return true;
             }

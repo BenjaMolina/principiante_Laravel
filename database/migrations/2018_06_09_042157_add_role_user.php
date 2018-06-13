@@ -14,7 +14,7 @@ class AddRoleUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->nullable();
+            $table->integer('role_id')->nullable(); //Convencion para relaciones entre tablas 
         });
     }
 
