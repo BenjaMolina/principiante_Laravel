@@ -48,10 +48,9 @@ Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.dest
 /*Route::get('test',function(){
     $user = new App\User;
 
-    $user->name = 'Jorge2';
-    $user->email = 'jorge2@gmail.com';
+    $user->name = 'Estudiante';
+    $user->email = 'jorge3@gmail.com';
     $user->password = bcrypt('123123'); //Encriptamos la contraseña
-    $user->role_id = '1';
 
     $user->save();
 
@@ -60,13 +59,13 @@ Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.dest
     $rol = new \App\Role;
     $rol->create([
         "nombre" => "admin",
-        "description" => "",
+        "description" => "Este rol tiene permisos de Administrador",
         "display_name" => "Administrador del sitio"
     ]);
     $rol2 = new \App\Role;
     $rol2->create([
         "nombre" => "mod",
-        "description" => "",
+        "description" => "Este rol tiene permisos de Moderador",
         "display_name" => "Moderador de comentarios"
     ]);
 
