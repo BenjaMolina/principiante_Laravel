@@ -11,10 +11,12 @@ class UsersController extends Controller
 
     function __construct()
     {
-        $this->middleware([
+        /*$this->middleware([
             'auth',
-            'roles:admin' //Pase de paramatros
-        ]); //array de middlewares
+            'roles:admin',['except' => ['edit','update']] //Pase de paramatros
+        ]); *///array de middlewares
+        $this->middleware('auth',['except' => ['show']]);
+        $this->middleware('roles:admin',['except' => ['edit','update','show']]); 
     }
     
     /**
@@ -58,7 +60,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        
+        $user = User::findOrFail($id);
+
+        return view('users.show', compact('user'));        
     }
 
     /**
@@ -69,7 +73,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        //dd(auth()->user());
         $user = User::findOrFail($id);
+
+        $this->authorize('edit',$user); //Hacemos la llamada a la politica creada,
+                                 //Se pasa el nombre de la funcion creada en la Politica y el usuario
+
         return view('users.edit', compact('user'));
     }
 
@@ -83,6 +92,8 @@ class UsersController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
+
+        $this->authorize('update',$user);
         
         $user->update($request->all());
 
@@ -97,6 +108,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->authorize('destroy',$user);
+
+        $user->delete();
+
+        return back();
     }
 }

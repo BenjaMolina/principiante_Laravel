@@ -61,7 +61,7 @@
                     
                         
                         @if(auth()->check())
-                            <li class=" {{ activateMenu('mensajes*') }}">
+                            <li class=" {{ activateMenu('mensajes') }}">
                                 <a   
                                     href="{{  route('mensajes.index') }}">
                                     Mensajes
@@ -93,6 +93,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth()->user()->name}} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="/usuarios/{{ auth()->id() }}/edit">Mi cuenta</a></li>
                                     <li><a href="/logout">Cerrar sesion</a></li>
                                 </ul>
                             </li>
