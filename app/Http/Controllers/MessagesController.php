@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use App\Message;
+use App\User;
 
 class MessagesController extends Controller
 {
@@ -54,14 +55,38 @@ class MessagesController extends Controller
         $message->save();*/
 
         //Segunda Forma de insertar nuevo registro
-        Message::create($request->all());
-
+        
         //Tercera forma de insertar un nuevo registro
         /*Message::create([
             "nombre" => $request->input('nombre'),
             "email" => $request->input('email'),
             "mensaje" => $request->input('mensaje')
-        ]);*/
+            ]);*/
+
+        $message = new Message;
+        $message->nombre = $request->input('nombre') ? $request->input('nombre') : '';
+        $message->email = $request->input('email') ? $request->input('email') : '';
+        $message->mensaje = $request->input('mensaje');
+
+        $message->save();
+ 
+        if(auth()->check())
+        {
+            auth()->user()->messages()->save($message);
+        }
+
+        /*auth()->user()->messages()->create($request->all()); //Solo funciona si lo hacen usuarios autenticados
+
+        
+        $message = new Message;
+        $message->nombre = '';
+        $message->email = '';
+        $message->mensaje = $request->input('mensaje');
+
+        $message->user_id = auth()->user()->id;
+
+        $message->save();*/
+
 
         //Redireccionar
         return redirect()->route('mensajes.create')->with('keyMensaje', 'Hemos recibido tu mensaje');
@@ -84,7 +109,7 @@ class MessagesController extends Controller
         //$message = DB::table('messages')->where('id',$id)->first(); //Query Builder
 
         $message = Message::findOrFail($id); //Eloquent
-
+        
         return view(
             'messages.edit',
             compact('message')
