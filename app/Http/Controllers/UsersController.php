@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\CreateUserRequest;
 
 class UsersController extends Controller
 {
@@ -38,7 +40,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::pluck('display_name', 'id');//Valor => llave
+        return view('users.create',compact('roles'));
     }
 
     /**
@@ -47,9 +50,13 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $user = User::create($request->all());
+        $user->roles()->attach($request->roles);
+
+        return redirect()->route('usuarios.index');
+
     }
 
     /**
@@ -79,7 +86,9 @@ class UsersController extends Controller
         $this->authorize('edit',$user); //Hacemos la llamada a la politica creada,
                                  //Se pasa el nombre de la funcion creada en la Politica y el usuario
 
-        return view('users.edit', compact('user'));
+        $roles = Role::pluck('display_name', 'id');//Valor => llave
+
+        return view('users.edit', compact('user','roles'));
     }
 
     /**
@@ -91,11 +100,14 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
+
         $user = User::findOrFail($id);
 
         $this->authorize('update',$user);
         
-        $user->update($request->all());
+        $user->update($request->only('name','email'));
+
+        $user->roles()->sync($request->roles); //INsercion ManyToMany
 
         return back()->with('info', 'Usuario Actualizado');
     }

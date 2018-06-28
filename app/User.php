@@ -32,6 +32,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class,'assigned_roles'); //Obtiene todos los roles asociados al usuario
     }
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+
     public function hasRoles(array $roles)
     {
         //dd($this->roles); //Manda a llamar al metodo role()
