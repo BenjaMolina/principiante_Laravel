@@ -9,7 +9,10 @@
     
     @else
     <form action="{{route('mensajes.store')}}" method="POST">
-        @include('messages.form')
+        @include('messages.form',[
+            'message' => new App\Message,
+            'showFields' => auth()->guest(),
+        ])
     </form>
     <hr>
     @endif

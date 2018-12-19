@@ -1,4 +1,4 @@
-@unless( isset($message) and $message->user_id)
+@if( $showFields)
     <p><label for="nombre">
         Nombre:
         <input class="form-control" type="text" name="nombre" value="{{ $message->nombre or old('nombre') }}">
@@ -10,7 +10,7 @@
         {!! $errors->first('email','<span class="error">:message</span>') !!}
     </label></p>
 
-@endunless
+@endif
 <p><label for="mensaje">
     Mensaje:
     <textarea class="form-control" name="mensaje"> {{$message->mensaje or old('mensaje')}}</textarea>

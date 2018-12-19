@@ -71,7 +71,9 @@ Route::delete('mensajes/{id}','MessagesController@destroy')->name('messages.dest
 
 });*/
 
-
+DB::listen(function($query){
+    echo "<pre>{ $query->sql}</pre>";
+});
 
 Route::get('roles', function(){
     return \App\Role::with('user')->get();

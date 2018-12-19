@@ -5,6 +5,9 @@
     <form action="{{route('mensajes.update',$message->id)}}" method="POST">
         {!! method_field('PUT') !!} <!--para poder hacer uso de PUT-->
         {!! csrf_field() !!}
-        @include('messages.form',['btnText' => 'Actualizar'])
+        @include('messages.form',[
+            'btnText' => 'Actualizar',
+            'showFields' => ! $message->user_id
+        ])
     </form>
 @stop
