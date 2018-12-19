@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use App\Message;
 use App\User;
 
+use Mail;
+use App\Events\MessageWasReceived;
+
 class MessagesController extends Controller
 {
 
@@ -68,13 +71,15 @@ class MessagesController extends Controller
         $message->email = $request->input('email') ? $request->input('email') : '';
         $message->mensaje = $request->input('mensaje');
 
+        
         $message->save();
  
         if(auth()->check())
         {
             auth()->user()->messages()->save($message);
         }
-
+        
+        event(new MessageWasReceived($message));
         /*auth()->user()->messages()->create($request->all()); //Solo funciona si lo hacen usuarios autenticados
 
         
