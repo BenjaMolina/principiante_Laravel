@@ -19,5 +19,9 @@ class Message extends Model
         return $this->morphOne(Note::class, 'notable');
     }
 
+    public function tags(){
+        return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
+    }
+
 
 }
