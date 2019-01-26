@@ -52,4 +52,13 @@
             @endforeach
         </tbody>
     </table>
+
+    {!! $messages
+        ->fragment('hash')
+        ->appends(request()->query())
+        ->render("pagination::simple-default") !!}
+    {!! $messages
+        ->fragment('hash')
+        ->appends(request()->query())
+        ->links("pagination::default") !!}
 @stop

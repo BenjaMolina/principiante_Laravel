@@ -24,7 +24,7 @@ class MessagesController extends Controller
     {
         //$messages =  DB::table('messages')->get(); //Query Builder
          
-        $messages = Message::with('user','note','tags')->get(); //Eloquent
+        $messages = Message::with('user','note','tags')->paginate(2); //Eloquent
 
         return view(
             'messages.index',  //Retornamos la vista que se encuentra en views/messages/index.blade.php
