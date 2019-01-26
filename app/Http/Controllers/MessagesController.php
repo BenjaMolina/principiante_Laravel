@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DB;
-use Carbon\Carbon;
-use App\Message;
-use App\User;
-
 use Mail;
+use App\User;
+use App\Message;
+use Carbon\Carbon;
+
+use Illuminate\Http\Request;
 use App\Events\MessageWasReceived;
+use Illuminate\Support\Facades\Cache;
 
 class MessagesController extends Controller
 {
@@ -23,9 +24,22 @@ class MessagesController extends Controller
     public function index()
     {
         //$messages =  DB::table('messages')->get(); //Query Builder
-         
-        $messages = Message::with('user','note','tags')->paginate(2); //Eloquent
+        $key = "messages.page". request('page',1); //para la paginacion
+        
+        $messages = Cache::rememberForever($key, function () {
+            return Message::with('user','note','tags')->paginate(2);
+        });
 
+        // if(Cache::has('messages.all')){
+            // $messages = Cache::get('messages.all');
+        // }
+
+        // else {
+        //     $messages = Message::with('user','note','tags')->paginate(2); //Eloquent
+        //     Cache::put('messages.all', $messages, 1);
+        // }
+         
+        
         return view(
             'messages.index',  //Retornamos la vista que se encuentra en views/messages/index.blade.php
             compact('messages') //Retornamos la variable $messages
@@ -65,10 +79,19 @@ class MessagesController extends Controller
             "email" => $request->input('email'),
             "mensaje" => $request->input('mensaje')
             ]);*/
+        
 
         $message = new Message;
-        $message->nombre = $request->input('nombre') ? $request->input('nombre') : '';
-        $message->email = $request->input('email') ? $request->input('email') : '';
+        if(auth()->check())
+        {
+            $message->nombre = auth()->user()->name; 
+            $message->email =  auth()->user()->email;
+        }
+        else {
+            $message->nombre = $request->input('nombre') ? $request->input('nombre') : '';
+            $message->email = $request->input('email') ? $request->input('email') : '';
+        }
+        
         $message->mensaje = $request->input('mensaje');
 
         
@@ -92,7 +115,7 @@ class MessagesController extends Controller
 
         $message->save();*/
 
-
+        Cache::flush();
         //Redireccionar
         return redirect()->route('mensajes.create')->with('keyMensaje', 'Hemos recibido tu mensaje');
     }
@@ -101,7 +124,10 @@ class MessagesController extends Controller
     {
         //$message = DB::table('messages')->where('id',$id)->first(); //Query Builder
 
-        $message = Message::findOrFail($id); //Eloquent
+        $message = Cache::remember('message'.$id, 5,function () use ($id) {
+            return Message::findOrFail($id); //Eloquent
+        });
+
 
         return view(
             'messages.show',
@@ -113,7 +139,9 @@ class MessagesController extends Controller
     {
         //$message = DB::table('messages')->where('id',$id)->first(); //Query Builder
 
-        $message = Message::findOrFail($id); //Eloquent
+        $message = Cache::remember('message'.$id, 5,function () use ($id) {
+            return Message::findOrFail($id); //Eloquent
+        });
         
         return view(
             'messages.edit',
@@ -138,7 +166,7 @@ class MessagesController extends Controller
 
         //En una sola linea
         Message::findOrFail($id)->update($request->all());
-
+        Cache::flush();
         //Redireccionamos
         return redirect()->route('mensajes.index');
     }
@@ -149,7 +177,7 @@ class MessagesController extends Controller
         //DB::table('messages')->where('id',$id)->delete(); //Query Builder
 
         Message::findOrFail($id)->delete(); //Eloquent
-
+        Cache::flush();
         //Redireccionar
         return redirect()->route('mensajes.index');
     }

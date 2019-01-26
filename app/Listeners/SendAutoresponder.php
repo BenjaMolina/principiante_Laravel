@@ -21,6 +21,10 @@ class SendAutoresponder
     public function handle(MessageWasReceived $event)
     {
         $message = $event->message;
+
+        if(auth()->check()){
+            $message->email = auth()->user()->email;
+        }
         
         Mail::send('emails.contact', ["msg" => $message], function ($m) use ($message) {
             $m->to($message->email, $message->nombre)

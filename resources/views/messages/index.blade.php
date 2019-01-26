@@ -54,11 +54,12 @@
     </table>
 
     {!! $messages
-        ->fragment('hash')
-        ->appends(request()->query())
+        ->fragment('hash') //#hash
+        ->appends(request()->query())//Parametros &osorted=asc
         ->render("pagination::simple-default") !!}
+
     {!! $messages
-        ->fragment('hash')
-        ->appends(request()->query())
+        ->fragment('hash') //#hash
+        ->appends(request()->query())//Parametros &osorted=asc
         ->links("pagination::default") !!}
 @stop
